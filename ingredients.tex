@@ -73,29 +73,26 @@
 
 % --- NUTRITION FACTS PANEL GRAPHIC ---
 \newcommand{\printNutritionFacts}{%
-    \begin{tcolorbox}[colback=white, colframe=black, sharp corners, boxrule=1pt, width=7.5cm, title=\textbf{Nutrition Facts}, coltitle=black, colbacktitle=white, attach title to upper=\vspace{0.5em}\hrule\vspace{0.5em}]
+    \begin{tcolorbox}[colback=white, colframe=black, sharp corners, boxrule=1pt, width=6.0cm, title=\textbf{Nutrition Facts (total)}, coltitle=black, colbacktitle=white, attach title to upper=\vspace{0.4em}]
         \small
-        \noindent\textbf{Amount Per Total Recipe} \\
-        \hrule width \linewidth height 2pt \vspace{0.5em}
+        \hrule width \linewidth height 2pt \vspace{0.3em}
         
         \noindent\textbf{Calories} \hfill \textbf{\printValue{\totalKcal}} \\
-        \hrule width \linewidth height 1.5pt \vspace{0.4em}
+        \hrule width \linewidth height 1.5pt \vspace{0.2em}
         
         \noindent\textbf{Total Fat} \printValue{\totalFat}\,g \hfill \\
         \noindent\hspace*{1em} Saturated Fat \printValue{\totalSatFat}\,g \hfill \\
-        \hrule\vspace{0.4em}
+        \hrule\vspace{0.2em}
         
         \noindent\textbf{Total Carbohydrate} \printValue{\totalCarbs}\,g \hfill \\
         \noindent\hspace*{1em} Dietary Fiber \printValue{\totalFiber}\,g \hfill \\
         \noindent\hspace*{1em} Total Sugars \printValue{\totalSugar}\,g \hfill \\
-        \hrule\vspace{0.4em}
+        \hrule\vspace{0.2em}
         
         \noindent\textbf{Protein} \printValue{\totalProtein}\,g \hfill \\
-        \hrule width \linewidth height 2pt \vspace{0.4em}
+        \hrule width \linewidth height 2pt \vspace{0.2em}
         
         \noindent\textbf{Sodium / Salt} \printValue{\totalSalt}\,g \hfill \\
-        \hrule width \linewidth height 2pt \vspace{0.4em}
-        \noindent{\scriptsize * Nutrition values are automatically calculated sums based on the values in the database.}
     \end{tcolorbox}%
 }
 
