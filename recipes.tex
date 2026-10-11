@@ -1,0 +1,38 @@
+\documentclass[11pt,a4paper,oneside]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+
+\usepackage[pdftex, hidelinks]{hyperref}
+
+\newcommand{\timelineField}[2]{%
+    \Form{\TextField[
+        name=#1, width=7.5em, align=1, readonly=true,
+        calculate={var eT=this.getField("endTime").value; var eD=this.getField("endDate").value; if(eT&&eD&&eT.indexOf(":")!==-1){var p=eT.split(":"); var eH=parseInt(p.shift(),10); var eM=parseInt(p.shift(),10); var dParts=eD.split("."); var dD=parseInt(dParts.shift(),10); var dM=parseInt(dParts.shift(),10)-1; var dY=parseInt(dParts.shift(),10); if(!isNaN(eH)&&!isNaN(eM)&&!isNaN(dD)&&!isNaN(dM)&&!isNaN(dY)){var date=new Date(dY,dM,dD,eH,eM,0,0); date.setMinutes(date.getMinutes()-#2); var curD=date.getDate(); var curM=date.getMonth()+1; var cH=date.getHours(); var cM=date.getMinutes(); var strDate=((curD<10)?"0"+curD:curD)+"."+((curM<10)?"0"+curM:curM)+"."; var strTime=((cH<10)?"0"+cH:cH)+":"+((cM<10)?"0"+cM:cM); event.value=strDate+" "+strTime;}}else{event.value="--.--. --:--";}}
+    ]{}}%
+}
+
+\newtcolorbox{ingredientsboxfull}{
+    sharp corners,
+    colback=gray!3,
+    colframe=gray!30,
+    boxrule=0.5pt,
+    width=\linewidth,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+\usepackage{auxhook}
+\begin{document}
+
+\title{Meine Rezepte}
+\author{}
+\date{\today}
+\maketitle
+
+\tableofcontents
+\clearpage
+
+\include{recipes/Roggenschrotbrot}
+\end{document}
