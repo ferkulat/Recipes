@@ -2,6 +2,9 @@
 \noindent\textsf{\small 1 Laib \textperiodcentered\ Dauer: ca. 3,5 Std. \hfill Brot \& Gebäck}
 \vspace{1em}
 
+% Initialize calculation counters
+\initRecipeCalculator
+
 \begin{ingredientsboxfull}
     \noindent
     % --- Linke Spalte: Brühstück ---
@@ -10,9 +13,9 @@
         \begin{tabular}{@{} r l l @{}}
             \multicolumn{3}{l}{\textbf{Brühstück:}} \\
             \midrule
-            240,65 & g  & Schrot (Stufe 7.5) \\
-            721,95 & ml & Wasser (kochend) \\
-            48,13  & g  & Salz \\
+            \addIngredient{ryeflour}{240.65} 
+            \addIngredient{water}{721}       % Automatically prints as 721.00
+            \addIngredient{salt}{48.13}
             & &
         \end{tabular}
     \end{minipage}%
@@ -21,14 +24,17 @@
         \begin{tabular}{@{} r l l @{}}
             \multicolumn{3}{l}{\textbf{Hauptteig:}} \\
             \midrule
-            1347,63 & g  & Schrot (Stufe 7.5) \\
-            828,23  & g  & Schrot (Stufe 3) \\
-            1754,73 & ml & Wasser \\
-            84,23   & g  & Sauerteigstarter \\
+            \addIngredient{ryeflour}{1347.63}
+            \addIngredient{ryeflour}{828.23}
+            \addIngredient{water}{1754.73}
+            \addIngredient{sourdough}{84}    % Automatically prints as 84.00
         \end{tabular}
     \end{minipage}
 \end{ingredientsboxfull}
 
+\vspace{1.5em}
+% --- 2. AUTOMATIC NUTRITION FACTS PANEL ---
+\printNutritionFacts
 \vspace{1.5em}
 \noindent\textbf{Zubereitung:}
 \vspace{0.5em}

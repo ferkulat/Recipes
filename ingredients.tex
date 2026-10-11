@@ -1,0 +1,114 @@
+% ingredients.tex
+\usepackage{xfp} % Modern high-precision floating point calculation engine
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+
+% --- LATEX3 KEY-VALUE SETUP & MATH ENGINE ---
+\ExplSyntaxOn
+
+% Define the nutrition key storage fields
+\keys_define:nn { ing }
+  {
+    name    .tl_set:N  = \l_ing_name_tl,
+    kcal    .fp_set:N  = \l_ing_kcal_fp,
+    protein .fp_set:N  = \l_ing_protein_fp,
+    carbs   .fp_set:N  = \l_ing_carbs_fp,
+    fat     .fp_set:N  = \l_ing_fat_fp,
+    satfat  .fp_set:N  = \l_ing_satfat_fp,
+    sugar   .fp_set:N  = \l_ing_sugar_fp,
+    fiber   .fp_set:N  = \l_ing_fiber_fp,
+    salt    .fp_set:N  = \l_ing_salt_fp,
+  }
+
+% Native LaTeX3 definition of the print macro to prevent parameter bugs
+\cs_new:Npn \printValue #1 
+  {
+    \fpeval{round(#1, 2)}
+  }
+
+% Native LaTeX3 initialization of calculation registers
+\cs_new:Npn \initRecipeCalculator 
+  {
+    \gdef\totalKcal{0}
+    \gdef\totalProtein{0}
+    \gdef\totalCarbs{0}
+    \gdef\totalFat{0}
+    \gdef\totalSatFat{0}
+    \gdef\totalSugar{0}
+    \gdef\totalFiber{0}
+    \gdef\totalSalt{0}
+  }
+
+% Native LaTeX3 definition to save ingredients into the global data cache
+\cs_new:Npn \defIngredient #1 #2
+  {
+    \expandafter\gdef\csname ingdata@#1\endcsname{#2}
+  }
+
+% Core logic to add an ingredient, evaluate math and print layout columns
+\newcommand{\addIngredient}[2]{
+    % Reset variables to default 0 values safely
+    \keys_set:nn { ing } { name={#1}, kcal=0, protein=0, carbs=0, fat=0, satfat=0, sugar=0, fiber=0, salt=0 }
+    % Load and parse the stored key-value list for this specific ID
+    \keys_set:nv { ing } { ingdata@#1 }
+    %
+    % Export the token list name safely to a standard global macro so tabular can read it
+    \tl_gset_eq:NN \g_printed_name_tl \l_ing_name_tl
+    \expandafter\gdef\expandafter\printedName\expandafter{\g_printed_name_tl}
+    %
+    % Accumulate values using floating point evaluation
+    \xdef\totalKcal{\fpeval{\totalKcal + (#2 * \l_ing_kcal_fp / 100)}}
+    \xdef\totalProtein{\fpeval{\totalProtein + (#2 * \l_ing_protein_fp / 100)}}
+    \xdef\totalCarbs{\fpeval{\totalCarbs + (#2 * \l_ing_carbs_fp / 100)}}
+    \xdef\totalFat{\fpeval{\totalFat + (#2 * \l_ing_fat_fp / 100)}}
+    \xdef\totalSatFat{\fpeval{\totalSatFat + (#2 * \l_ing_satfat_fp / 100)}}
+    \xdef\totalSugar{\fpeval{\totalSugar + (#2 * \l_ing_sugar_fp / 100)}}
+    \xdef\totalFiber{\fpeval{\totalFiber + (#2 * \l_ing_fiber_fp / 100)}}
+    \xdef\totalSalt{\fpeval{\totalSalt + (#2 * \l_ing_salt_fp / 100)}}
+    %
+    % Output table row with exactly 2 decimal places
+    \fpeval{round(#2, 2)} & g & \printedName \\
+}
+\ExplSyntaxOff
+
+% --- NUTRITION FACTS PANEL GRAPHIC ---
+\newcommand{\printNutritionFacts}{%
+    \begin{tcolorbox}[colback=white, colframe=black, sharp corners, boxrule=1pt, width=7.5cm, title=\textbf{Nutrition Facts}, coltitle=black, colbacktitle=white, attach title to upper=\vspace{0.5em}\hrule\vspace{0.5em}]
+        \small
+        \noindent\textbf{Amount Per Total Recipe} \\
+        \hrule width \linewidth height 2pt \vspace{0.5em}
+        
+        \noindent\textbf{Calories} \hfill \textbf{\printValue{\totalKcal}} \\
+        \hrule width \linewidth height 1.5pt \vspace{0.4em}
+        
+        \noindent\textbf{Total Fat} \printValue{\totalFat}\,g \hfill \\
+        \noindent\hspace*{1em} Saturated Fat \printValue{\totalSatFat}\,g \hfill \\
+        \hrule\vspace{0.4em}
+        
+        \noindent\textbf{Total Carbohydrate} \printValue{\totalCarbs}\,g \hfill \\
+        \noindent\hspace*{1em} Dietary Fiber \printValue{\totalFiber}\,g \hfill \\
+        \noindent\hspace*{1em} Total Sugars \printValue{\totalSugar}\,g \hfill \\
+        \hrule\vspace{0.4em}
+        
+        \noindent\textbf{Protein} \printValue{\totalProtein}\,g \hfill \\
+        \hrule width \linewidth height 2pt \vspace{0.4em}
+        
+        \noindent\textbf{Sodium / Salt} \printValue{\totalSalt}\,g \hfill \\
+        \hrule width \linewidth height 2pt \vspace{0.4em}
+        \noindent{\scriptsize * Nutrition values are automatically calculated sums based on the values in the database.}
+    \end{tcolorbox}%
+}
+
+\newtcolorbox{ingredientsboxfull}{
+    sharp corners, colback=gray!3, colframe=gray!30, boxrule=0.5pt,
+    width=\linewidth, top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+% =======================================================
+% CENTRAL DATA STORAGE: KEY-VALUE FORMAT (Values per 100g)
+% =======================================================
+\defIngredient{ryeflour}{name={Rye Whole Grain Flour}, kcal=327, protein=11, carbs=61, fat=2, satfat=0.2, sugar=1.0, fiber=13.0, salt=0.01}
+\defIngredient{water}{name={Water}, kcal=0, protein=0, carbs=0, fat=0, satfat=0, sugar=0, fiber=0, salt=0}
+\defIngredient{salt}{name={Sea Salt}, kcal=0, protein=0, carbs=0, fat=0, satfat=0, sugar=0, fiber=0, salt=99.0}
+\defIngredient{sourdough}{name={Sourdough Starter}, kcal=150, protein=5, carbs=28, fat=1, satfat=0.1, sugar=0.5, fiber=3.0, salt=0.05}
+
