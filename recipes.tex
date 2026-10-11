@@ -6,7 +6,7 @@
 \usepackage{enumitem}
 \usepackage{tcolorbox}
 \usepackage{siunitx}
-
+\usepackage[style=authoryear, backend=biber]{biblatex}
 \usepackage[pdftex, hidelinks]{hyperref}
 \sisetup{range-phrase = {--}, range-units = single}
 \newcommand{\celsius}[1]{\qty{#1}{\celsius}}
@@ -16,7 +16,7 @@
         calculate={var eT=this.getField("endTime").value; var eD=this.getField("endDate").value; if(eT&&eD&&eT.indexOf(":")!==-1){var p=eT.split(":"); var eH=parseInt(p.shift(),10); var eM=parseInt(p.shift(),10); var dParts=eD.split("."); var dD=parseInt(dParts.shift(),10); var dM=parseInt(dParts.shift(),10)-1; var dY=parseInt(dParts.shift(),10); if(!isNaN(eH)&&!isNaN(eM)&&!isNaN(dD)&&!isNaN(dM)&&!isNaN(dY)){var date=new Date(dY,dM,dD,eH,eM,0,0); date.setMinutes(date.getMinutes()-#2); var curD=date.getDate(); var curM=date.getMonth()+1; var cH=date.getHours(); var cM=date.getMinutes(); var strDate=((curD<10)?"0"+curD:curD)+"."+((curM<10)?"0"+curM:curM)+"."; var strTime=((cH<10)?"0"+cH:cH)+":"+((cM<10)?"0"+cM:cM); event.value=strDate+" "+strTime;}}else{event.value="--.--. --:--";}}
     ]{}}%
 }
-
+\addbibresource{references.bib}
 \usepackage{auxhook}
 \input{ingredients.tex}
 \begin{document}
@@ -30,4 +30,5 @@
 \clearpage
 
 \include{recipes/Roggenschrotbrot}
+\printbibliography
 \end{document}
