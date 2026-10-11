@@ -5,13 +5,11 @@
 % Initialize calculation counters
 \initRecipeCalculator
 
-\noindent % Prevents paragraph indentation from shifting the boxes
-\noindent % Prevents default paragraph indentation from shifting the layout
-% --- 1. LEFT SIDE: INGREDIENTS BOX (60% Width) ---
+\noindent 
+% --- 1. LEFT SIDE: INGREDIENTS BOX (60% Width, standard top anchor) ---
 \begin{minipage}[t]{0.60\linewidth}
     \begin{ingredientsboxfull}[\linewidth]
         \noindent
-        % --- Top Part: Pre-ferment ---
         \begin{tabular}{@{} r l l @{}}
             \multicolumn{3}{l}{\textbf{Pre-ferment (Soaker):}} \\
             \midrule
@@ -20,9 +18,8 @@
             \addIngredient{salt}{48.13}
         \end{tabular}
         
-        \nopagebreak\vspace{1.5em} % Clean vertical distance between blocks
+        \nopagebreak\vspace{1.5em} 
         
-        % --- Bottom Part: Main Dough ---
         \begin{tabular}{@{} r l l @{}}
             \multicolumn{3}{l}{\textbf{Main Dough:}} \\
             \midrule
@@ -32,13 +29,13 @@
             \addIngredient{sourdough}{84.23}
         \end{tabular}
     \end{ingredientsboxfull}
-\end{minipage}% <-- This percent sign is CRITICAL! It prevents a line-wrap bug.
-\hfill % Pushes the right box precisely to the right margin
+\end{minipage}% 
+\hfill  % Pushes the right box precisely to the right margin
 % --- 2. RIGHT SIDE: NUTRITION FACTS PANEL (35% Width) ---
 \begin{minipage}[t]{0.35\linewidth}
     % Overrides the default 7.5cm panel width to fill the remaining space exactly
     \addtolength{\linewidth}{-1pt} % Micro-buffer for borders
-    \printNutritionFacts
+    \raisebox{-5.5pt}{\printNutritionFacts}
 \end{minipage}
 
 \vspace{1.5em}
