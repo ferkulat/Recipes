@@ -99,9 +99,10 @@
     \end{tcolorbox}%
 }
 
-\newtcolorbox{ingredientsboxfull}{
+% Updated box style that dynamically adapts its width to its surrounding container
+\newtcolorbox{ingredientsboxfull}[1][\linewidth]{
     sharp corners, colback=gray!3, colframe=gray!30, boxrule=0.5pt,
-    width=\linewidth, top=10pt, bottom=10pt, left=10pt, right=10pt
+    width=#1, top=10pt, bottom=10pt, left=10pt, right=10pt
 }
 
 % =======================================================

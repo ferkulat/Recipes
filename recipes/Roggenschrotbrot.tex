@@ -5,36 +5,42 @@
 % Initialize calculation counters
 \initRecipeCalculator
 
-\begin{ingredientsboxfull}
-    \noindent
-    % --- Linke Spalte: Brühstück ---
-    \begin{minipage}[t]{0.45\linewidth}
-        % r = amount aligned right, l = unit aligned left, l = ingridient aligned left
+\noindent % Prevents paragraph indentation from shifting the boxes
+\noindent % Prevents default paragraph indentation from shifting the layout
+% --- 1. LEFT SIDE: INGREDIENTS BOX (60% Width) ---
+\begin{minipage}[t]{0.60\linewidth}
+    \begin{ingredientsboxfull}[\linewidth]
+        \noindent
+        % --- Top Part: Pre-ferment ---
         \begin{tabular}{@{} r l l @{}}
-            \multicolumn{3}{l}{\textbf{Brühstück:}} \\
+            \multicolumn{3}{l}{\textbf{Pre-ferment (Soaker):}} \\
             \midrule
             \addIngredient{ryeflour}{240.65} 
-            \addIngredient{water}{721}       % Automatically prints as 721.00
+            \addIngredient{water}{721.95}       
             \addIngredient{salt}{48.13}
-            & &
         \end{tabular}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}[t]{0.45\linewidth}
+        
+        \nopagebreak\vspace{1.5em} % Clean vertical distance between blocks
+        
+        % --- Bottom Part: Main Dough ---
         \begin{tabular}{@{} r l l @{}}
-            \multicolumn{3}{l}{\textbf{Hauptteig:}} \\
+            \multicolumn{3}{l}{\textbf{Main Dough:}} \\
             \midrule
             \addIngredient{ryeflour}{1347.63}
             \addIngredient{ryeflour}{828.23}
             \addIngredient{water}{1754.73}
-            \addIngredient{sourdough}{84}    % Automatically prints as 84.00
+            \addIngredient{sourdough}{84.23}
         \end{tabular}
-    \end{minipage}
-\end{ingredientsboxfull}
+    \end{ingredientsboxfull}
+\end{minipage}% <-- This percent sign is CRITICAL! It prevents a line-wrap bug.
+\hfill % Pushes the right box precisely to the right margin
+% --- 2. RIGHT SIDE: NUTRITION FACTS PANEL (35% Width) ---
+\begin{minipage}[t]{0.35\linewidth}
+    % Overrides the default 7.5cm panel width to fill the remaining space exactly
+    \addtolength{\linewidth}{-1pt} % Micro-buffer for borders
+    \printNutritionFacts
+\end{minipage}
 
-\vspace{1.5em}
-% --- 2. AUTOMATIC NUTRITION FACTS PANEL ---
-\printNutritionFacts
 \vspace{1.5em}
 \noindent\textbf{Zubereitung:}
 \vspace{0.5em}
