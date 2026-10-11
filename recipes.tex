@@ -5,9 +5,11 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{tcolorbox}
+\usepackage{siunitx}
 
 \usepackage[pdftex, hidelinks]{hyperref}
-
+\sisetup{range-phrase = {--}, range-units = single}
+\newcommand{\celsius}[1]{\qty{#1}{\celsius}}
 \newcommand{\timelineField}[2]{%
     \Form{\TextField[
         name=#1, width=7.5em, align=1, readonly=true,
