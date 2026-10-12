@@ -76,14 +76,16 @@
     \begin{tcolorbox}[colback=white, colframe=black, sharp corners, boxrule=1pt, width=6.0cm, title=\textbf{Nutrition Facts (total)}, coltitle=black, colbacktitle=white, attach title to upper=\vspace{0.4em}]
         \small
         \hrule width \linewidth height 2pt \vspace{0.3em}
-        \noindent Energy      \hfill \printValue{\totalKcal}\,kcal \\
-        \noindent Fat           \hfill \printValue{\totalFat}\,g  \\
-        \noindent Saturated Fat \hfill \printValue{\totalSatFat}\,g  \\
-        \noindent Carbohydrate  \hfill \printValue{\totalCarbs}\,g  \\
-        \noindent Fiber         \hfill \printValue{\totalFiber}\,g  \\
-        \noindent Sugars        \hfill \printValue{\totalSugar}\,g  \\
-        \noindent Protein       \hfill \printValue{\totalProtein}\,g  \\
-        \noindent Sodium / Salt \hfill \printValue{\totalSalt}\,g  \\
+        \begin{tabular}{@{} l r l @{}}
+        \noindent Energy        & \printValue{\totalKcal}    & kcal \\
+        \noindent Fat           & \printValue{\totalFat}     & g    \\
+        \noindent Saturated Fat & \printValue{\totalSatFat}  & g    \\
+        \noindent Carbohydrate  & \printValue{\totalCarbs}   & g    \\
+        \noindent Fiber         & \printValue{\totalFiber}   & g    \\
+        \noindent Sugars        & \printValue{\totalSugar}   & g    \\
+        \noindent Protein       & \printValue{\totalProtein} & g    \\
+        \noindent Sodium / Salt & \printValue{\totalSalt}    & g    \\
+        \end{tabular}
     \end{tcolorbox}%
 }
 
